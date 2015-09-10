@@ -98,6 +98,7 @@ function ScreenshotReporter(options) {
 		options.takeScreenShotsForSkippedSpecs || false;
 	this.takeScreenShotsOnlyForFailedSpecs =
 		options.takeScreenShotsOnlyForFailedSpecs || false;
+	this.ignoreMetaDataFile = options.ignoreMetaDataFile || false;
 }
 
 /** Function: reportSpecResults
@@ -157,7 +158,9 @@ function reportSpecResults(spec) {
 					throw new Error('Could not create directory ' + directory);
 				} else {
 					util.storeScreenShot(png, screenShotPath);
-					util.storeMetaData(metaData, metaDataPath);
+					if(!self.ignoreMetaDataFile){
+						util.storeMetaData(metaData, metaDataPath);
+					}
 				}
 			});
 		});
